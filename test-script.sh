@@ -9,9 +9,9 @@ mkdir -p "$MOUNT_POINT"
 
 dd if=/dev/zero of="$DISK_IMG" bs=1M count=1024 status=none
 
-sudo mkfs -t ext4 "$DISK_IMG"
+mkfs -t ext4 "$DISK_IMG"
 
-sudo mount -o loop "$DISK_IMG" "$MOUNT_POINT"
+mount -o loop "$DISK_IMG" "$MOUNT_POINT"
 
 mkdir -p "$MOUNT_POINT/log"
 mkdir -p "$MOUNT_POINT/backup"
