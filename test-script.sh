@@ -7,7 +7,6 @@ umount "$MOUNT_POINT"
 rm -rf "$MOUNT_POINT" "$DISK_IMG"
 mkdir -p "$MOUNT_POINT"
 
-
 dd if=/dev/zero of="$DISK_IMG" bs=1M count=1024 status=none
 
 sudo mkfs -t ext4 "$DISK_IMG"
