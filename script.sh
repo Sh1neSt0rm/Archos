@@ -68,11 +68,16 @@ if (( PERCENT_USED > THRESHOLD )); then
 
   BACKUP_DIR="/backup"
   mkdir -p "$BACKUP_DIR"
+
+ARCH_EXT="tar.gz"; TAR_CMD=(tar -czf)
+if [[ "${LAB1_MAX_COMPRESSION:-0}" = "1" ]]; then
+    ARCH_EXT="tar.lzma"; TAR_CMD=(tar --lzma -cf)
+fi
   TIMESTAMP=$(date +%Y%m%d%H%M%S)
-  ARCHIVE_NAME="$BACKUP_DIR/backup_$TIMESTAMP.tar.gz"
+  ARCHIVE_NAME="$BACKUP_DIR/backup_$TIMESTAMP.$ARCH_EXT"
 
   echo "Архивируем ${#FILES_TO_ARCHIVE[@]} файлов в $ARCHIVE_NAME"
-  tar czf "$ARCHIVE_NAME" "${FILES_TO_ARCHIVE[@]}"
+  "${TAR_CMD[@]}" "$ARCHIVE_NAME" "${FILES_TO_ARCHIVE[@]}"
 
   if [ $? -eq 0 ]; then
     echo "Архивация успешна, удаляем исходные файлы"
